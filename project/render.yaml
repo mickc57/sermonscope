@@ -3,7 +3,7 @@ services:
     name: sermonscope
     env: node
     buildCommand: npm install && npm run build
-    startCommand: npm run server
+    startCommand: node server/index.js
     envVars:
       - key: NODE_ENV
         value: production
@@ -13,3 +13,10 @@ services:
         sync: false
       - key: SUPABASE_SERVICE_ROLE_KEY
         sync: false
+    healthCheckPath: /api/health
+    autoDeploy: true
+    disk:
+      name: uploads
+      mountPath: /opt/render/project/src/uploads
+      sizeGB: 1
+    rootDir: .
